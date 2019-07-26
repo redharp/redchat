@@ -1,0 +1,65 @@
+{
+  "name": "chatharp",
+  "description": "a chat service",
+  "version": "0.1.0",
+  "license": "ISC",
+  "author": {
+    "name": "redharp",
+    "email": "trevorold@icloud.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/redharp/chatharp.git"
+  },
+  "bin": "lib/index.js",
+  "files": [
+    "css/",
+    "dist/",
+    "lib/",
+    "scss/"
+  ],
+  "scripts": {
+    "test": "tsc --noEmit && tslint \"src/**/*.ts?(x)\" && cross-env NODE_ENV=test jest --passWithNoTests",
+    "start": "node lib/index.js",
+    "clean": "del-cli lib dist css coverage && jest --clearCache",
+    "build": "run-script clean && run-script build:js && run-script build:d.ts && run-script build:cleanup",
+    "build:cleanup": "del-cli \"lib/**/?(*.)test.@(ts|tsx|js|jsx)\"",
+    "build:d.ts": "tsc -p tsconfig.build.json",
+    "build:js": "cross-env NODE_ENV=production babel src --out-dir lib --extensions .ts,.tsx,.js,.jsx --copy-files",
+    "prepack": "run-script build",
+    "prestart": "run-script build:js"
+  },
+  "dependencies": {
+    "@types/source-map-support": "^0.5.0",
+    "pino": "^5.13.1",
+    "source-map-support": "^0.5.12"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-typescript": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@types/aws-lambda": "^8.10.31",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.8",
+    "@types/pino": "^5.8.8",
+    "@xornot/run-script": "^0.1.2",
+    "aws-lambda": "^0.1.2",
+    "aws-sdk": "^2.500.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^5.2.0",
+    "del-cli": "^2.0.0",
+    "jest": "^24.8.0",
+    "pino-pretty": "^3.2.0",
+    "serverless": "^1.48.4",
+    "serverless-webpack": "^5.3.1",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.37.0"
+  }
+}
