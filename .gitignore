@@ -60,7 +60,8 @@ typings/
 # next.js build output
 .next
 
-# serverless etc
+# build output
 .build
 .dynamodb
 .serverless
+.webpack
