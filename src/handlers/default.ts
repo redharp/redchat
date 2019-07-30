@@ -5,6 +5,7 @@ import { MessageSender } from "../sockets/send";
 
 const logger = new Logger().getLogger("defaultHandler");
 const currentSession: Set<string> = new Set();
+let ms: MessageSender;
 
 export const defaultHandler: APIGatewayProxyHandler = async (event, context) => {
     const { body } = event;
@@ -13,7 +14,9 @@ export const defaultHandler: APIGatewayProxyHandler = async (event, context) => 
 
     logger.info(`Incoming message from ${connectionId}: ${body}`);
     const endpoint: string = AWSURL(apiId, stage);
-    const ms: MessageSender = new MessageSender(endpoint);
+
+    if (!ms) ms = new MessageSender(endpoint);
+
     for (const user of currentSession.values()) {
         await ms.postMessage("Hello there!", user);
     }
