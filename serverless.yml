@@ -31,6 +31,7 @@ provider:
   runtime: nodejs10.x
   websocket: true
   websocketsApiRouteSelectionExpression: $request.body.action
+  awsAccount: ${env:AWS_ACCOUNTID}
 
 # you can overwrite defaults here
 #  stage: dev
@@ -69,11 +70,18 @@ functions:
   connect:
     handler: src/lambdas.connect
     memorySize: 512
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
     events:
       - websocket: $connect
+  disconnect:
+    handler: src/lambdas.disconnect
+    memorySize: 512
+    events:
+      - websocket: $disconnect
+  defaultHandler:
+    handler: src/lambdas.defaultHandler
+    memorySize: 512
+    events:
+      - websocket: $default
 #      - http:
 #          path: users/create
 #          method: get

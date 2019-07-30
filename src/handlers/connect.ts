@@ -1,9 +1,13 @@
-import { Handler } from "aws-lambda";
+import { APIGatewayProxyHandler } from "aws-lambda";
 import { Logger } from "../utils/Logger";
 
 const logger = new Logger().getLogger("connect");
 
-export const connect: Handler = (event, context) => {
-    logger.info(`Incoming connect request: ${context}`);
-
+export const connect: APIGatewayProxyHandler = async (event, context) => {
+    logger.info(`Incoming connect request: ${JSON.stringify(context, undefined, 2)}`);
+    logger.info(`Hello to user: ${event.requestContext.connectionId}`);
+    return {
+        body: "hello",
+        statusCode: 200
+    };
 };
