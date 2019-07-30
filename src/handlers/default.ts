@@ -10,9 +10,11 @@ let ms: MessageSender;
 export const defaultHandler: APIGatewayProxyHandler = async (event, context) => {
     const { body } = event;
     const { connectionId, apiId, stage } = event.requestContext;
-    currentSession.add(connectionId as string);
 
     logger.info(`Incoming message from ${connectionId}: ${body}`);
+
+    currentSession.add(connectionId as string);
+
     const endpoint: string = AWSURL(apiId, stage);
 
     if (!ms) ms = new MessageSender(endpoint);
