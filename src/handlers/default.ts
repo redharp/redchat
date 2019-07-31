@@ -1,6 +1,8 @@
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { Logger } from "../utils/Logger";
 import { AWSURL } from "../config/constants";
+import { User } from "../persistence/models/Users";
+import { addUser, getConnected } from "../persistence/dynamodb";
 import { MessageSender } from "../sockets/send";
 
 const logger = new Logger().getLogger("defaultHandler");
@@ -10,6 +12,14 @@ let ms: MessageSender;
 export const defaultHandler: APIGatewayProxyHandler = async (event, context) => {
     const { body } = event;
     const { connectionId, apiId, stage } = event.requestContext;
+    const user = new User("test", connectionId as string).build();
+    const saveResult = await addUser(user);
+    if (saveResult) {
+        logger.info(`Saved successfully`);
+        logger.info(JSON.stringify(saveResult, undefined, 2));
+    }
+
+    const users = await getConnected();
 
     logger.info(`Incoming message from ${connectionId}: ${body}`);
 
@@ -19,8 +29,13 @@ export const defaultHandler: APIGatewayProxyHandler = async (event, context) => 
 
     if (!ms) ms = new MessageSender(endpoint);
 
-    for (const user of currentSession.values()) {
-        await ms.postMessage("Hello there!", user);
+    if (users) {
+        const { Items } = users;
+        const values = Items || [];
+        // tslint:disable-next-line: no-shadowed-variable
+        values.map(async ({ connectionId }) => {
+            await ms.postMessage(`Hi ${connectionId}`, connectionId);
+        });
     }
 
     return {

@@ -61,6 +61,7 @@ typings/
 .next
 
 # build output
+lib
 .build
 .dynamodb
 .serverless

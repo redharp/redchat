@@ -31,8 +31,11 @@
   },
   "dependencies": {
     "@types/source-map-support": "^0.5.0",
+    "dynamoose": "^1.10.0",
+    "moment": "^2.24.0",
     "pino": "^5.13.1",
-    "source-map-support": "^0.5.12"
+    "source-map-support": "^0.5.12",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -46,6 +49,7 @@
     "@types/jest": "^24.0.15",
     "@types/node": "^12.6.8",
     "@types/pino": "^5.8.8",
+    "@types/uuid": "^3.4.5",
     "@xornot/run-script": "^0.1.2",
     "aws-lambda": "^0.1.2",
     "aws-sdk": "^2.500.0",
