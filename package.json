@@ -52,7 +52,7 @@
     "@types/uuid": "^3.4.5",
     "@xornot/run-script": "^0.1.2",
     "aws-lambda": "^0.1.2",
-    "aws-sdk": "^2.500.0",
+    "aws-sdk": "^2.814.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.6",
