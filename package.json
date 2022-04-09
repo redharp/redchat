@@ -32,7 +32,7 @@
   "dependencies": {
     "@types/source-map-support": "^0.5.0",
     "dynamoose": "^1.10.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "pino": "^5.13.1",
     "source-map-support": "^0.5.12",
     "uuid": "^3.3.2"
