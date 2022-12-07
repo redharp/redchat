@@ -60,7 +60,7 @@
     "del-cli": "^2.0.0",
     "jest": "^24.8.0",
     "pino-pretty": "^3.2.0",
-    "serverless": "^1.48.4",
+    "serverless": "^3.25.1",
     "serverless-webpack": "^5.3.1",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3",
